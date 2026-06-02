@@ -35,6 +35,9 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME || 'postgres',
   password: process.env.DB_PASSWORD || 'postgres',
   database: process.env.DB_NAME || 'okgym',
+  ssl: {
+  rejectUnauthorized: false
+},
   synchronize: process.env.NODE_ENV !== 'production', // Auto-sync in development
   logging: process.env.NODE_ENV !== 'production',
   entities: [
