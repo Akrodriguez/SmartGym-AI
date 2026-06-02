@@ -65,7 +65,7 @@ class SkipExerciseDto {
 
 // Extend Express Request type to include user
 interface AuthenticatedRequest extends Request {
-    user: {
+    user?: {
         id: string;
         email: string;
         role: UserRole;
@@ -93,7 +93,7 @@ const sessionService = new WorkoutSessionService();
 export const startSession = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { workoutPlanId } = req.body;
-        const userId = req.user.id;
+        const userId = req.user!.id;
 
         logger.info(`Starting workout session for plan ID ${workoutPlanId} (type: ${typeof workoutPlanId}) for user ${userId}`);
         
@@ -393,7 +393,7 @@ export const startSession = async (req: AuthenticatedRequest, res: Response, nex
 export const getSessionById = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
 
         // Get base session
         const session = await AppDataSource
@@ -436,7 +436,7 @@ export const getSessionById = async (req: AuthenticatedRequest, res: Response, n
  */
 export const getUserSessions = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { status, startDateMin, startDateMax, limit = 10, offset = 0 } = req.query;
 
         // Use query builder for more explicit control
@@ -531,7 +531,7 @@ export const getUserSessions = async (req: AuthenticatedRequest, res: Response, 
 export const recordExerciseCompletion = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId, exerciseId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const exerciseData = plainToClass(RecordExerciseDto, req.body);
 
         logger.info(`Recording exercise completion - Session: ${sessionId}, Exercise: ${exerciseId}, User: ${userId}`);
@@ -734,7 +734,7 @@ export const recordExerciseCompletion = async (req: AuthenticatedRequest, res: R
 export const skipExercise = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId, exerciseId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const skipData = plainToClass(SkipExerciseDto, req.body);
 
         // Validate input
@@ -816,7 +816,7 @@ export const skipExercise = async (req: AuthenticatedRequest, res: Response, nex
 export const pauseSession = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { duration, caloriesBurned } = req.body;
 
         logger.info(`Attempting to pause session ${sessionId}`);
@@ -858,7 +858,7 @@ export const pauseSession = async (req: AuthenticatedRequest, res: Response, nex
 export const resumeSession = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
 
         logger.info(`Attempting to resume session ${sessionId} for user ${userId}`);
 
@@ -907,7 +907,7 @@ export const resumeSession = async (req: AuthenticatedRequest, res: Response, ne
 export const completeSession = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { duration, caloriesBurned, exerciseResults } = req.body;
 
         logger.info(`Attempting to complete session ${sessionId}`);
@@ -1067,7 +1067,7 @@ export const completeSession = async (req: AuthenticatedRequest, res: Response, 
 export const cancelSession = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
 
         // Direct query to cancel session and return updated record
         const results = await AppDataSource.query(
@@ -1100,7 +1100,7 @@ export const cancelSession = async (req: AuthenticatedRequest, res: Response, ne
 export const getSessionExercises = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
 
         // Get base session
         let session;
@@ -1164,7 +1164,7 @@ export const getSessionExercises = async (req: AuthenticatedRequest, res: Respon
 export const getSessionSummary = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
 
         // Get base session
         const session = await AppDataSource
@@ -1196,7 +1196,7 @@ export const getSessionSummary = async (req: AuthenticatedRequest, res: Response
  */
 export const getActiveSession = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const userId = req.user.id;
+        const userId = req.user!.id;
 
         // Get active session
         let session: WorkoutWithRelations | null = null;
@@ -1282,7 +1282,7 @@ export const getActiveSession = async (req: AuthenticatedRequest, res: Response,
 export const updateSessionStatus = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { status } = req.body;
 
         // Validate status
@@ -1374,7 +1374,7 @@ export const updateSessionStatus = async (req: AuthenticatedRequest, res: Respon
 export const submitSessionFeedback = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { difficultyRating, feedback } = req.body;
 
         // Validate difficulty rating
@@ -1468,7 +1468,7 @@ export const submitSessionFeedback = async (req: AuthenticatedRequest, res: Resp
 export const saveSessionExerciseResults = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { exerciseResults } = req.body;
 
         if (!exerciseResults || typeof exerciseResults !== 'object') {
@@ -1625,7 +1625,7 @@ export const saveSessionExerciseResults = async (req: AuthenticatedRequest, res:
 export const updateSessionUserFeedback = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { sessionId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { userFeedback } = req.body;
 
         logger.info(`Updating user feedback for session ${sessionId}`);

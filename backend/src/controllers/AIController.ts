@@ -64,7 +64,7 @@ if (!userId) {
     async getExerciseHistory(req: Request, res: Response): Promise<void> {
         try {
             const { exerciseId } = req.params;
-            const userId = req.user.id; // Assuming user is authenticated
+            const userId = req.user!.id; // Assuming user is authenticated
 
             if (!exerciseId) {
                 throw new AppError('Exercise ID is required', 400);

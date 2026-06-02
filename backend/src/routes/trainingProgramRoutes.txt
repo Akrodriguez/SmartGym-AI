@@ -159,7 +159,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
  */
 router.post('/:id/enroll', authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const programId = parseInt(req.params.id);
     
     const enrollment = await trainingProgramService.enrollUserInProgram(userId, programId);
@@ -177,11 +177,11 @@ router.post('/:id/enroll', authMiddleware, async (req, res) => {
  */
 router.get('/enrollments', authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const enrollments = await trainingProgramService.getUserEnrollments(userId);
     res.json(enrollments);
   } catch (error) {
-    logger.error(`Error fetching enrollments for user ${req.user.id}:`, error);
+    logger.error(`Error fetching enrollments for user ${req.user!.id}:`, error);
     res.status(500).json({ message: 'Error fetching enrollments' });
   }
 });

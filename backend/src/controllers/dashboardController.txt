@@ -9,7 +9,7 @@ import { Between } from 'typeorm';
 
 export const getRecentWorkouts = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const limit = parseInt(req.query.limit as string) || 5;
 
     const workouts = await AppDataSource
@@ -48,7 +48,7 @@ export const getRecommendedWorkouts = async (req: Request, res: Response) => {
 
 export const getScheduledWorkouts = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const limit = parseInt(req.query.limit as string) || 3;
 
     const workouts = await AppDataSource
@@ -72,7 +72,7 @@ export const getScheduledWorkouts = async (req: Request, res: Response) => {
 
 export const getAchievements = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
 
     const achievements = await AppDataSource
       .getRepository(Achievement)
@@ -90,7 +90,7 @@ export const getAchievements = async (req: Request, res: Response) => {
 
 export const getFitnessGoals = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
 
     const goals = await AppDataSource
       .getRepository(FitnessGoal)
@@ -108,7 +108,7 @@ export const getFitnessGoals = async (req: Request, res: Response) => {
 
 export const getBodyMetrics = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
 
     const metrics = await AppDataSource
       .getRepository(BodyMetric)
@@ -126,7 +126,7 @@ export const getBodyMetrics = async (req: Request, res: Response) => {
 
 export const getWeeklyActivity = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const today = new Date();
     const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
 
@@ -156,7 +156,7 @@ export const getWeeklyActivity = async (req: Request, res: Response) => {
 
 export const getNotifications = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
 
     const notifications = await AppDataSource
       .getRepository(Notification)
@@ -174,7 +174,7 @@ export const getNotifications = async (req: Request, res: Response) => {
 
 export const getWorkoutStats = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const days = parseInt(req.query.days as string) || 7;
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);

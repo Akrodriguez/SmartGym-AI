@@ -15,7 +15,7 @@ import { WorkoutSessionService } from '../services/WorkoutSessionService';
 
 // Extend Express Request type to include user
 interface AuthenticatedRequest extends Request {
-  user: {
+  user?: {
     id: string;
     email: string;
     role: UserRole;
@@ -35,7 +35,7 @@ const sessionService = new WorkoutSessionService();
 export const getRecentWorkouts = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const limit = parseInt(req.query.limit as string) || 5;
-    const userId = req.user.id;
+    const userId = req.user!.id;
 
     // Get base workouts
     const workouts = await AppDataSource
@@ -82,7 +82,7 @@ export const getRecentWorkouts = async (req: AuthenticatedRequest, res: Response
 export const getRecommendedWorkouts = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const limit = parseInt(req.query.limit as string) || 4;
-    const userId = req.user.id;
+    const userId = req.user!.id;
 
     // Get base workouts
     const workouts = await AppDataSource
@@ -132,7 +132,7 @@ export const getRecommendedWorkouts = async (req: AuthenticatedRequest, res: Res
 export const getScheduledWorkouts = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const limit = parseInt(req.query.limit as string) || 3;
-    const userId = req.user.id;
+    const userId = req.user!.id;
 
     // Get base workouts
     const workouts = await AppDataSource
@@ -182,7 +182,7 @@ export const getScheduledWorkouts = async (req: AuthenticatedRequest, res: Respo
 
 export const getAchievements = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const limit = parseInt(req.query.limit as string) || 5;
 
     const achievements = await AppDataSource
@@ -202,7 +202,7 @@ export const getAchievements = async (req: AuthenticatedRequest, res: Response, 
 
 export const getFitnessGoals = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const limit = parseInt(req.query.limit as string) || 3;
 
     const goals = await AppDataSource
@@ -222,7 +222,7 @@ export const getFitnessGoals = async (req: AuthenticatedRequest, res: Response, 
 
 export const getBodyMetrics = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const limit = parseInt(req.query.limit as string) || 5;
 
     const metrics = await AppDataSource
@@ -242,7 +242,7 @@ export const getBodyMetrics = async (req: AuthenticatedRequest, res: Response, n
 
 export const getWeeklyActivity = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const today = new Date();
     const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
 
@@ -274,7 +274,7 @@ export const getWeeklyActivity = async (req: AuthenticatedRequest, res: Response
 
 export const getNotifications = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const limit = parseInt(req.query.limit as string) || 5;
 
     const notifications = await AppDataSource
@@ -294,7 +294,7 @@ export const getNotifications = async (req: AuthenticatedRequest, res: Response,
 
 export const getWorkoutStats = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const days = parseInt(req.query.days as string) || 7;
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
@@ -350,7 +350,7 @@ export const getWorkoutStats = async (req: AuthenticatedRequest, res: Response, 
 
 export const getDashboardData = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     
     logger.info(`Fetching dashboard data for user ${userId}`);
     

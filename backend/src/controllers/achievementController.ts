@@ -6,7 +6,7 @@ import { UserRole } from '../models/shared/Enums';
 
 // Define interface for authenticated requests
 interface AuthenticatedRequest extends Request {
-  user: {
+  user?: {
     id: string;
     email: string;
     role: UserRole;
@@ -24,7 +24,7 @@ export class AchievementController {
    */
   async getUserAchievements(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const userId = req.user.id;
+      const userId = req.user!.id;
       logger.info(`Fetching achievements for user ${userId}`);
       
       const achievements = await achievementService.getUserAchievements(userId);

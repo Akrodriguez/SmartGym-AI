@@ -773,7 +773,7 @@ export class ExerciseService {
             } else {
                 cacheMetrics.recordMiss('exercise', duration);
             }
-            return value;
+            return value ?? null;
         } catch (error) {
             cacheMetrics.recordError();
             return null;

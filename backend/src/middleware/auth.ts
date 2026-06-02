@@ -99,7 +99,7 @@ export const authorize = (allowedRoles: UserRole[]) => {
       
       if (!allowedRoles.includes(req.user.role)) {
         logger.warn('Authorization failed: Insufficient privileges', { 
-          id: req.user.id, 
+          id: req.user!.id, 
           role: req.user.role, 
           requiredRoles: allowedRoles 
         });
@@ -107,7 +107,7 @@ export const authorize = (allowedRoles: UserRole[]) => {
       }
       
       logger.debug('User authorized', { 
-        id: req.user.id, 
+        id: req.user!.id, 
         role: req.user.role 
       });
       next();
