@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from '../types/express';
+import { Request, Response, NextFunction } from 'express';
 import { AppError, ErrorType } from '../utils/errors';
 import { UserRole } from '../models/shared/Enums';
 

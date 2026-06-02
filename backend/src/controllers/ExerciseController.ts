@@ -1,4 +1,4 @@
-import { Request, Response } from '../types/express';
+import { Request, Response } from 'express';
 import { ExerciseService } from '../services/ExerciseService';
 import { AppError, ErrorType } from '../utils/errors';
 import { Exercise } from '../models/Exercise';

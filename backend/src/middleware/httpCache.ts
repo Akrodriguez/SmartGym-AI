@@ -2,7 +2,7 @@
 const express = require('express');
 import { createHash } from 'crypto';
 import logger from '../utils/logger';
-import { Request, Response, NextFunction } from '../types/express';
+import { Request, Response, NextFunction } from 'express';
 
 /**
  * Options for HTTP cache control

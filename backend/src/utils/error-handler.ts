@@ -1,4 +1,4 @@
-import { Request, Response } from '../types/express';
+import { Request, Response } from 'express';
 import { AppError, ErrorType } from './errors';
 import logger from './logger';
 

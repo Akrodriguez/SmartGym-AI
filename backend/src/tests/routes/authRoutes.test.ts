@@ -3,7 +3,7 @@ import request from 'supertest';
 const express = require('express');
 import router from '../../routes/authRoutes';
 import { AuthController } from '../../controllers/AuthController';
-import { Application } from '../../types/express';
+import { Application } from 'express';
 
 // Mock dependencies
 jest.mock('../../controllers/AuthController');

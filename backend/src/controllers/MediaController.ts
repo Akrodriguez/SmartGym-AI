@@ -1,4 +1,4 @@
-import { Request, Response } from '../types/express';
+import { Request, Response } from 'express';
 import { AppError, ErrorType } from '../utils/errors';
 import { Media, MediaType, MediaContext } from '../models/Media';
 import { AppDataSource } from '../data-source';
