@@ -35,6 +35,7 @@
   "src/**/*.template.ts",
   "src/tests/**/*",
   "**/*.test.ts",
-  "**/*.spec.ts"
+  "**/*.spec.ts",
+  "src/seed/**/*"
 ]
 } 
