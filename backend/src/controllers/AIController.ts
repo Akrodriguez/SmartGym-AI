@@ -16,8 +16,12 @@ export class AIController {
     async analyzeExerciseForm(req: Request, res: Response): Promise<void> {
         try {
             const { exerciseType, exerciseId } = req.body;
-            const userId = req.user.id; // Assuming user is authenticated
-            const videoData = req.file?.buffer; // Assuming using multer for file upload
+            const userId = req.user?.id;
+
+if (!userId) {
+    throw new AppError('User not authenticated', 401);
+} // Assuming user is authenticated
+            const videoData = (req as any).file?.buffer;// Assuming using multer for file upload
 
             if (!videoData) {
                 throw new AppError('No video data provided', 400);
