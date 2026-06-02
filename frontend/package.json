@@ -11,7 +11,7 @@
     "@mediapipe/pose": "0.5.1675469404",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "5.0.0-alpha.155",
-    "@mui/material": "5.15.0",
+    "@mui/material": "^5.15.14",
     "@mui/x-date-pickers": "7.28.2",
     "@mui/x-date-pickers-pro": "7.28.2",
     "@testing-library/jest-dom": "^5.17.0",
@@ -72,6 +72,8 @@
   "proxy": "http://localhost:3001/",
   "devDependencies": {
     "@types/lodash": "4.17.16",
+    "ajv": "^8.20.0",
+    "ajv-keywords": "^5.1.0",
     "react-scripts": "^5.0.1"
   }
 }
