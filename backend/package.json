@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node ./node_modules/ts-node/dist/bin.js --transpile-only src/app.ts",
     "db:refresh": "node ./node_modules/ts-node/dist/bin.js --transpile-only src/scripts/db-refresh.ts",
-    "build": "node ./node_modules/.bin/tsc",
+    "build": "tsc",
     "start": "node dist/app.js",
     "watch": "node ./node_modules/.bin/nodemon -x ts-node --transpile-only src/app.ts",
     "test": "jest",
