@@ -103,7 +103,7 @@ export const AppDataSource = new DataSource({
     ssl: {
   rejectUnauthorized: false,
 },
-    synchronize: false, // Disabled to prevent schema changes - using ID compatibility layer instead
+    synchronize: true, // Disabled to prevent schema changes - using ID compatibility layer instead
     logging: process.env.NODE_ENV === "development",
     entities: [
       User,
