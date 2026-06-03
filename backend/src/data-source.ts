@@ -97,6 +97,9 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME || "postgres",
     password: process.env.DB_PASSWORD || "123456",
     database: process.env.DB_NAME || "okgym",
+    ssl: {
+  rejectUnauthorized: false,
+},
     synchronize: false, // Disabled to prevent schema changes - using ID compatibility layer instead
     logging: process.env.NODE_ENV === "development",
     entities: [
