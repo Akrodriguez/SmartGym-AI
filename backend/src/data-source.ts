@@ -26,6 +26,16 @@ import { UserActivity } from "./models/UserActivity";
 import { AudioCue } from "./models/AudioCue";
 import logger from "./utils/logger";
 
+const getSslConfig = () => {
+  if (process.env.DB_SSL === 'true') {
+    return {
+      rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== 'false'
+    };
+  }
+
+  return false;
+};
+
 // Register all entities - this step is important for TypeORM to recognize entities
 // This helps avoid "No metadata for Entity was found" errors
 import "./models/index";
@@ -41,9 +51,7 @@ export async function testDatabaseConnection() {
       username: process.env.DB_USERNAME || "postgres",
       password: process.env.DB_PASSWORD || "123456",
       database: process.env.DB_NAME || "okgym",
-      ssl: {
-  rejectUnauthorized: false,
-},
+      ssl: getSslConfig(),
       synchronize: false,
       logging: true,
       entities: [
@@ -100,9 +108,7 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME || "postgres",
     password: process.env.DB_PASSWORD || "123456",
     database: process.env.DB_NAME || "okgym",
-    ssl: {
-  rejectUnauthorized: false,
-},
+    ssl: getSslConfig(),
     synchronize: true, // Disabled to prevent schema changes - using ID compatibility layer instead
     logging: process.env.NODE_ENV === "development",
     entities: [
