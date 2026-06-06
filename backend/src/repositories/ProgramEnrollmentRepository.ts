@@ -231,7 +231,7 @@ export class ProgramEnrollmentRepository extends GenericRepository<ProgramEnroll
                 const enrollment = await this.findById(enrollmentId);
                 if (enrollment) {
                     // Get the TrainingProgramRepository to update the completion count
-                    const { TrainingProgramRepository } = await import('./TrainingProgramRepository');
+                    const { TrainingProgramRepository } = await import('./TrainingProgramRepository.js');
                     const programRepo = new TrainingProgramRepository();
                     await programRepo.incrementCompletionCount(enrollment.program_id);
                     await programRepo.updateSuccessRate(enrollment.program_id);
@@ -294,7 +294,7 @@ export class ProgramEnrollmentRepository extends GenericRepository<ProgramEnroll
             const enrollment = await this.findById(enrollmentId);
             if (enrollment) {
                 // Get the repository to update program rating
-                const { TrainingProgramRepository } = await import('./TrainingProgramRepository');
+                const { TrainingProgramRepository } = await import('./TrainingProgramRepository.js');
                 const programRepo = new TrainingProgramRepository();
                 
                 // In a real implementation, you would calculate the average rating
